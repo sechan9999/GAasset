@@ -175,6 +175,7 @@ header {
 .kpi-card.blue::before { background: #3b82f6; }
 .kpi-card.green::before { background: #10b981; }
 .kpi-card.amber::before { background: #f59e0b; }
+.kpi-card.pink::before { background: #ec4899; }
 
 .kpi-zip {
     font-size: 0.75rem;

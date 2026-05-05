@@ -59,6 +59,23 @@ const data = {
             trend: [180000, 190000, 210000, 245000, 275000, 280000, 272000, 268000, 265000, 258000, 252000, 248457],
             radar: [35, 45, 40, 45, 30],
             insight: 'Affordable entry point. Currently a buyer\'s market with significant price corrections and longer DOM.'
+        },
+        {
+            zip: '30518',
+            city: 'Sugar Hill',
+            value: 485200,
+            yoy: 4.5,
+            sqft: 205,
+            sqftPrev: 196,
+            dom: 35,
+            status: 'competitive',
+            statusText: 'Competitive',
+            county: 'Gwinnett',
+            color: '#ec4899',
+            bgColor: 'rgba(236, 72, 153, 0.1)',
+            trend: [340000, 355000, 380000, 410000, 440000, 465000, 460000, 462000, 465000, 475000, 480000, 485200],
+            radar: [65, 68, 75, 70, 72],
+            insight: 'Strong growth corridor. Sugar Hill/Buford remains a highly desirable area for families with competitive market speed.'
         }
     ]
 };
