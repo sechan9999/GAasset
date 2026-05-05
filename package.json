@@ -1,16 +1,21 @@
 {
-  "name": "outputs",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "georgia-real-estate-dashboard",
+  "version": "1.1.0",
+  "description": "Premium real estate market intelligence dashboard for GA",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "dev": "node server.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "real-estate",
+    "dashboard",
+    "georgia",
+    "analytics"
+  ],
+  "author": "Antigravity AI",
   "license": "ISC",
   "dependencies": {
-    "chart.js": "^4.5.1",
     "express": "^5.2.1"
   }
 }

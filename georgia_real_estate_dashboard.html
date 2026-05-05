@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Georgia Real Estate Market Dashboard | Pro</title>
+    <title>GA Market Intelligence Dashboard | Pro v1.2</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Chart.js CDN -->
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Leaflet Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -20,6 +23,7 @@
                 <p>Premium Real Estate Analytics for Gwinnett & DeKalb County</p>
             </div>
             <div class="controls">
+                <button id="refresh-btn" class="theme-toggle">🔄 Sync Data</button>
                 <button class="theme-toggle" onclick="toggleTheme()">🌙 Dark</button>
             </div>
         </header>
@@ -28,107 +32,25 @@
             <button class="nav-tab active" data-tab="overview">Overview</button>
             <button class="nav-tab" data-tab="trends">Price Trends</button>
             <button class="nav-tab" data-tab="comparison">Comparison</button>
+            <button class="nav-tab" data-tab="tools">Investment Tools</button>
         </nav>
 
         <!-- View: Overview -->
         <div id="overview-view" class="view-section active">
-            <!-- KPI Grid -->
-            <div class="dashboard-grid animate-fade-in">
-                <div class="card kpi-card blue">
-                    <div class="kpi-zip">ZIP 30097</div>
-                    <div class="kpi-area">Duluth, GA</div>
-                    <div class="kpi-value">$607,213</div>
-                    <div class="kpi-change change-up">
-                        <span>▲</span> 6.0% YoY
-                    </div>
-                    <div class="kpi-stats">
-                        <div class="stat-item">
-                            <span class="stat-label">$/sqft</span>
-                            <span class="stat-value">$212</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Days on Market</span>
-                            <span class="stat-value">47 days</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card kpi-card green">
-                    <div class="kpi-zip">ZIP 30024</div>
-                    <div class="kpi-area">Suwanee, GA</div>
-                    <div class="kpi-value">$575,458</div>
-                    <div class="kpi-change change-down">
-                        <span>▼</span> 0.6% YoY
-                    </div>
-                    <div class="kpi-stats">
-                        <div class="stat-item">
-                            <span class="stat-label">$/sqft</span>
-                            <span class="stat-value">$220</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Days on Market</span>
-                            <span class="stat-value">38 days</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card kpi-card amber">
-                    <div class="kpi-zip">ZIP 30058</div>
-                    <div class="kpi-area">Lithonia, GA</div>
-                    <div class="kpi-value">$248,457</div>
-                    <div class="kpi-change change-down">
-                        <span>▼</span> 6.5% YoY
-                    </div>
-                    <div class="kpi-stats">
-                        <div class="stat-item">
-                            <span class="stat-label">$/sqft</span>
-                            <span class="stat-value">$132</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Days on Market</span>
-                            <span class="stat-value">76 days</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card kpi-card pink">
-                    <div class="kpi-zip">ZIP 30518</div>
-                    <div class="kpi-area">Sugar Hill, GA</div>
-                    <div class="kpi-value">$485,200</div>
-                    <div class="kpi-change change-up">
-                        <span>▲</span> 4.5% YoY
-                    </div>
-                    <div class="kpi-stats">
-                        <div class="stat-item">
-                            <span class="stat-label">$/sqft</span>
-                            <span class="stat-value">$205</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Days on Market</span>
-                            <span class="stat-value">35 days</span>
-                        </div>
-                    </div>
-                </div>
+            <!-- KPI Grid (Dynamically Rendered) -->
+            <div id="kpi-container" class="dashboard-grid animate-fade-in">
+                <!-- JS will inject cards here -->
             </div>
 
-            <!-- Market Insights (Part of Overview) -->
-            <div class="insights-grid animate-fade-in" style="animation-delay: 0.1s; margin-top: 2rem;">
-                <div class="insight-item">
-                    <span class="insight-title" style="color: #3b82f6">Duluth (30097)</span>
-                    <p>Premium market segment. High stability with 6% appreciation. Ideal for long-term investment equity.</p>
-                </div>
-                <div class="insight-item">
-                    <span class="insight-title" style="color: #10b981">Suwanee (30024)</span>
-                    <p>High velocity market. Fast turnover (38 days) suggests strong buyer demand despite minor price corrections.</p>
-                </div>
-                <div class="insight-item">
-                    <span class="insight-title" style="color: #f59e0b">Lithonia (30058)</span>
-                    <p>Value segment. Significant buyer leverage with 76 days on market. High yield potential for rental conversion.</p>
-                </div>
-                <div class="insight-item">
-                    <span class="insight-title" style="color: #ec4899">Sugar Hill (30518)</span>
-                    <p>Strong growth corridor. sugar Hill/Buford area shows resilient demand with 4.5% YoY appreciation and fast turnover.</p>
-                </div>
+            <!-- Market Map (P2 Feature) -->
+            <div class="card map-card animate-fade-in" style="margin-top: 2rem; animation-delay: 0.1s;">
+                <div class="card-title">📍 Regional Market Heatmap</div>
+                <div id="map" style="height: 400px; border-radius: 12px; z-index: 1;"></div>
+            </div>
+
+            <!-- Market Insights (Dynamically Rendered) -->
+            <div id="insights-container" class="insights-grid animate-fade-in" style="animation-delay: 0.2s; margin-top: 2rem;">
+                <!-- JS will inject insights here -->
             </div>
         </div>
 
@@ -138,7 +60,7 @@
                 <div class="card chart-wide">
                     <div class="card-title">
                         <span>📈 Home Value Performance (5yr Trend)</span>
-                        <div class="badge badge-success">Live Data</div>
+                        <div id="data-status-badge" class="badge">Simulated Data</div>
                     </div>
                     <div class="chart-container">
                         <canvas id="trendChart"></canvas>
@@ -163,55 +85,8 @@
         <div id="comparison-view" class="view-section">
             <div class="card table-card animate-fade-in">
                 <div class="card-title">📋 Detailed Market Metrics Comparison</div>
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Metric</th>
-                                <th>30097 (Duluth)</th>
-                                <th>30024 (Suwanee)</th>
-                                <th>30058 (Lithonia)</th>
-                                <th>30518 (Sugar Hill)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Typical Home Value</td>
-                                <td><strong>$607,213</strong></td>
-                                <td><strong>$575,458</strong></td>
-                                <td><strong>$248,457</strong></td>
-                                <td><strong>$485,200</strong></td>
-                            </tr>
-                            <tr>
-                                <td>Median Sale Price</td>
-                                <td>$775,000</td>
-                                <td>$630,000</td>
-                                <td>$280,000</td>
-                                <td>$495,000</td>
-                            </tr>
-                            <tr>
-                                <td>YoY Price Change</td>
-                                <td class="change-up" style="font-weight:700">+6.0%</td>
-                                <td class="change-down" style="font-weight:700">-3.1%</td>
-                                <td class="change-down" style="font-weight:700">-5.1%</td>
-                                <td class="change-up" style="font-weight:700">+4.5%</td>
-                            </tr>
-                            <tr>
-                                <td>Market Competitiveness</td>
-                                <td><span class="badge badge-warning">Moderate</span></td>
-                                <td><span class="badge badge-success">Competitive</span></td>
-                                <td><span class="badge badge-warning">Moderate</span></td>
-                                <td><span class="badge badge-success">Competitive</span></td>
-                            </tr>
-                            <tr>
-                                <td>County</td>
-                                <td>Gwinnett</td>
-                                <td>Gwinnett</td>
-                                <td>DeKalb</td>
-                                <td>Gwinnett</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div id="table-container" class="table-wrapper">
+                    <!-- JS will inject table here -->
                 </div>
             </div>
             
@@ -226,10 +101,47 @@
                     <div class="card-title">⏱️ Velocity (Days on Market)</div>
                     <div class="chart-container">
                         <div id="velocity-stats" style="display: flex; justify-content: space-around; align-items: center; height: 100%; font-size: 1.5rem; font-weight: 800;">
-                            <div style="text-align: center; color: #3b82f6;">47<br><span style="font-size: 0.8rem; color: var(--text-muted);">Duluth</span></div>
-                            <div style="text-align: center; color: #10b981;">38<br><span style="font-size: 0.8rem; color: var(--text-muted);">Suwanee</span></div>
-                            <div style="text-align: center; color: #f59e0b;">76<br><span style="font-size: 0.8rem; color: var(--text-muted);">Lithonia</span></div>
-                            <div style="text-align: center; color: #ec4899;">35<br><span style="font-size: 0.8rem; color: var(--text-muted);">Sugar Hill</span></div>
+                            <!-- JS will inject velocity here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View: Tools (P2 Feature) -->
+        <div id="tools-view" class="view-section">
+            <div class="dashboard-grid">
+                <div class="card chart-wide">
+                    <div class="card-title">💰 Smart Mortgage Calculator</div>
+                    <div class="calculator-grid">
+                        <div class="calc-inputs">
+                            <div class="input-group">
+                                <label>Home Price ($)</label>
+                                <input type="number" id="calc-price" value="500000">
+                            </div>
+                            <div class="input-group">
+                                <label>Down Payment (%)</label>
+                                <input type="number" id="calc-down" value="20">
+                            </div>
+                            <div class="input-group">
+                                <label>Interest Rate (%)</label>
+                                <input type="number" id="calc-rate" value="6.5" step="0.1">
+                            </div>
+                            <div class="input-group">
+                                <label>Loan Term (Years)</label>
+                                <select id="calc-term">
+                                    <option value="30">30 Years</option>
+                                    <option value="15">15 Years</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="calc-result">
+                            <div class="result-label">Estimated Monthly Payment</div>
+                            <div id="calc-payment" class="result-value">$0</div>
+                            <div class="result-details">
+                                <p>Principal & Interest: <span id="calc-pi">$0</span></p>
+                                <p>Tax & Insurance: <span id="calc-ti">$0</span></p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -237,8 +149,8 @@
         </div>
 
         <footer>
-            <p>© 2026 Georgia Real Estate Analytics | Data sources: Zillow ZHVI & Redfin Intelligence</p>
-            <p>Last Updated: May 2026</p>
+            <p>© 2026 Georgia Real Estate Analytics | Pro v1.2</p>
+            <p>Data sources: Zillow ZHVI & Redfin Intelligence | Last Updated: <span id="last-updated">May 2026</span></p>
         </footer>
     </div>
 
