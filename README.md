@@ -2,7 +2,7 @@
 
 A premium, data-driven market intelligence platform for Georgia real estate, focusing on Gwinnett and DeKalb County. This dashboard features a modern "Single Source of Truth" architecture, ensuring 100% data consistency across all analytics components.
 
-![Dashboard Preview](https://via.placeholder.com/1200x600.png?text=GA+Market+Intelligence+Dashboard+v1.2)
+https://gaasset.vercel.app/
 
 ## 🚀 Recent Updates (Architectural Overhaul)
 
