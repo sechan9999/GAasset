@@ -2,7 +2,7 @@
 
 A premium, interactive market analysis tool for Georgia real estate, focusing on Gwinnett and DeKalb County (Zip codes 30097, 30024, and 30058). This dashboard provides high-fidelity data visualization for home values, price trends, and market velocity.
 
-![gaasset.vercel.app/](https://gaasset.vercel.app/)
+https://gaasset.vercel.app/
 
 ## ✨ Key Features
 
