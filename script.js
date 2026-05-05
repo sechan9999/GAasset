@@ -240,17 +240,23 @@ function setupEventListeners() {
 
 function switchView(view) {
     state.activeTab = view;
-    // Implementation for dynamic view filtering could go here
-    console.log(`Switched to ${view}`);
     
-    const sections = ['overview-grid', 'charts-grid', 'table-card', 'insights-grid'];
-    
-    if (view === 'trends') {
-        // Just focus on trends
-        document.querySelector('.chart-wide').scrollIntoView({ behavior: 'smooth' });
-    } else if (view === 'comparison') {
-        document.querySelector('.table-card').scrollIntoView({ behavior: 'smooth' });
-    } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    // Update active tab button
+    document.querySelectorAll('.nav-tab').forEach(t => {
+        t.classList.toggle('active', t.dataset.tab === view);
+    });
+
+    // Toggle view sections
+    document.querySelectorAll('.view-section').forEach(section => {
+        section.classList.remove('active');
+        // Small delay to allow display: none to trigger before opacity transition
+        setTimeout(() => {
+            if (section.id === `${view}-view`) {
+                section.classList.add('active');
+            }
+        }, 10);
+    });
+
+    // Scroll to top when switching
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
